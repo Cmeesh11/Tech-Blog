@@ -9,6 +9,9 @@
       <input type="password" class="form-control" id="password" />
     </div>
     <button type="submit" class="btn btn-primary mb-3" id="login-button">Login</button>
+    {{#if notExist}}
+    <p class="not-exist">User does not exist</p>
+    {{/if}}
     <a class='d-block mb-2' href="/signup">Don't have an account? Click here to sign up!</a>
   </form>
 </div>

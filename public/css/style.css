@@ -3,6 +3,9 @@ a {
   text-decoration: none;
 }
 
+.not-exist {
+  color: red;
+}
 
 #tech-blog {
   color: rgb(37, 176, 176);
