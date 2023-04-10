@@ -1,5 +1,9 @@
 <div class="container mt-5 border border-dark-subtle">
-  <form>
+  {{#if login}}
+  <form id="login-form">
+  {{else}}
+  <form id="signup-form">
+  {{/if}}
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input type="text" class="form-control" id="username" />
@@ -8,11 +12,21 @@
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" id="password" />
     </div>
+    {{#if login}}
     <button type="submit" class="btn btn-primary mb-3" id="login-button">Login</button>
+    {{/if}}
+    {{#if signup}}
+    <button type="submit" class="btn btn-primary mb-3" id="signup-button">Sign Up</button>
+    {{/if}}
     {{#if notExist}}
     <p class="not-exist">User does not exist</p>
     {{/if}}
+    {{#if notEnough}}
+    <p class="not-exist">Please enter a Username and a Password</p>
+    {{/if}}
+    {{#if login}}
     <a class='d-block mb-2' href="/signup">Don't have an account? Click here to sign up!</a>
+    {{/if}}
   </form>
 </div>
 <script src="/js/login.js"></script>

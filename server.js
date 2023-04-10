@@ -4,6 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const routes = require("./controllers/index.js");
+require('mysql2');
 
 // Including sequelize and sessions
 const sequelize = require("./config/connection.js");
@@ -17,7 +18,12 @@ const hbs = exphbs.create();
 
 const sess = {
   secret: "Secret password code",
-  cookie: {},
+  cookie: {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
