@@ -15,6 +15,7 @@ userRouter.post("/login", async (req, res) => {
         .json({ message: "Incorrect email or password, please try again" });
       return;
     }
+
     if (user.checkPassword(req.body.password)) {
       req.session.save(() => {
         req.session.logged_in = true;
@@ -50,12 +51,14 @@ userRouter.post("/logout", async (req, res) => {
 userRouter.post("/signup", async (req, res) => {
   try {
     // Create new user
+    console.log(req.body);
     const user = await User.create(req.body);
-
     // Storing session variables
     req.session.save(() => {
+      console.log("test");
       req.session.logged_in = true;
       req.session.id = user.id;
+      console.log("test2");
     });
     res.status(200).json({ message: "Account successfully created!" });
   } catch (err) {

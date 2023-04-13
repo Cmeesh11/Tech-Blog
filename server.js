@@ -9,7 +9,7 @@ require('mysql2');
 
 // Including sequelize and sessions
 const sequelize = require("./config/connection.js");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Creating new insance of express and port
 const app = express();
@@ -38,11 +38,12 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(join(__dirname, "public")));
 
 app.use(routes);
 
-sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-});
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`)
+  sequelize.sync({ force: false });
+})
