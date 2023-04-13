@@ -1,10 +1,24 @@
 const rootRouter = require('express').Router();
+const { User, Post } = require('../models');
 
 // Renders homepage
-rootRouter.get('/', (req, res) => {
-  res.render('homepage', {
-    logged_in: req.session.logged_in
+rootRouter.get('/', async (req, res) => {
+  try {
+  const posts = await Post.findAll({
+    include: {
+      model: User,
+      attributes: ['username']
+    },
+    raw: true
   });
+
+  res.render('homepage', {
+    logged_in: req.session.logged_in,
+    posts
+  });
+} catch (err) {
+  res.status(404).json(err);
+}
 })
 
 // Renders login page

@@ -44,7 +44,7 @@ const signupHandler = async (event) => {
       document.location.replace("/user/dashboard");
     } else {
       alert("Failed to create user");
-      document.location.replace("/empty");
+      document.location.replace("/emptySignup");
     }
   } else {
     document.location.replace('/emptySignup');

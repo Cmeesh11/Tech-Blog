@@ -1,5 +1,5 @@
-const newPostButton = document.querySelector("#new-post");
-const body = document.querySelector("#container");
+const newPost = document.querySelector(".new-post");
+const container = document.querySelector("#container");
 
 const generateForm = () => {
   // Creating form
@@ -29,9 +29,9 @@ const generateForm = () => {
   titleLabel.textContent = "Title";
   contentLabel.textContent = "Content";
   postButton.textContent = "Post";
-  newPostButton.remove();
+  newPost.style.display = 'none';
 
-  body.appendChild(form);
+  container.appendChild(form);
   form.appendChild(titleDiv);
   form.appendChild(contentDiv);
   form.appendChild(postButton);
@@ -40,14 +40,16 @@ const generateForm = () => {
   contentDiv.appendChild(contentLabel);
   contentDiv.appendChild(contentInput);
 
+  // Listens for submit and runs newPost route
   postButton.addEventListener("click", async () => {
-    let titleValue = titleInput.value;
-    let contentValue = contentInput.value;
+    let titleValue = titleInput.value.trim();
+    let contentValue = contentInput.value.trim();
+    let date = new Date();
 
     if (titleValue && contentValue) {
       const response = await fetch("/post/newPost", {
         method: "POST",
-        body: JSON.stringify({ title: titleValue, text: contentValue }),
+        body: JSON.stringify({ title: titleValue, text: contentValue, date }),
         headers: { "Content-Type": "application/json" },
       });
       if (response.ok) {
@@ -60,4 +62,9 @@ const generateForm = () => {
   });
 };
 
-newPostButton.addEventListener("click", generateForm);
+$(document).on("click", "button.new-post", (event) => {
+  generateForm();
+});
+
+
+

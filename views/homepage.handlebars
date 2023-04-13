@@ -1,0 +1,16 @@
+{{#each posts as |post|}}
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{post.title}}</h3>
+    <h4 class="card-title">Posted by {{post.User.username}}</h4>
+    <p class="card-text">{{post.text}}</p>
+  </div>
+   {{#if post.comments}}
+    <p>Comments:</p>
+    {{/if}}
+</div>
+{{#each post.comments as |comment|}}
+    <p>{{comment.text}}</p>
+    <p>Submitted by {{comment.user_id}} on {{comment.date}}</p>
+{{/each}} 
+{{/each}}

@@ -4,6 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const routes = require("./controllers/index.js");
+const helpers = require('./utils/helpers.js');
 require('mysql2');
 
 // Including sequelize and sessions
@@ -14,10 +15,10 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const hbs = exphbs.create();
+const hbs = exphbs.create({ helpers });
 
 const sess = {
-  secret: "Secret password code",
+  secret: 'Super secret secret',
   cookie: {
     maxAge: 300000,
     httpOnly: true,
@@ -42,6 +43,6 @@ app.use(express.static(join(__dirname, "public")));
 
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 });
