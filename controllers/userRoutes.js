@@ -1,5 +1,6 @@
-const userRouter = require("express").Router();
+const userRouter = require("express").Router()
 const { User, Post, Comment } = require("../models");
+const withAuth = require('../utils/auth');
 // Login for existing user
 userRouter.post("/login", async (req, res) => {
   try {
@@ -63,17 +64,15 @@ userRouter.post("/signup", async (req, res) => {
 });
 
 // Brings user to dashboard if they are logged_in
-userRouter.get("/dashboard", async (req, res) => {
+userRouter.get("/dashboard", withAuth, async (req, res) => {
   try {
     const posts = await Post.findAll({
       include: [
         {
           model: User,
-          attributes: ["username"],
         },
         {
           model: Comment,
-          attributes: ['text', 'date']
         }
       ],
       raw: true,
@@ -88,7 +87,7 @@ userRouter.get("/dashboard", async (req, res) => {
   }
 });
 
-userRouter.post("/comment", async (req, res) => {
+userRouter.post("/comment", withAuth, async (req, res) => {
   try {
     const comment = await Comment.create({
       ...req.body,
