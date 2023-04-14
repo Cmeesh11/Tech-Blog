@@ -51,7 +51,7 @@ userRouter.post("/signup", async (req, res) => {
     const user = await User.create(req.body);
     // Storing session variables
     req.session.logged_in = true;
-    req.session.id = user.id;
+    req.session.user_id = user.id;
     req.session.save((err) => {
       if (err) throw err;
     });
@@ -64,7 +64,7 @@ userRouter.post("/signup", async (req, res) => {
 // Brings user to dashboard if they are logged_in
 userRouter.get("/dashboard", withAuth, async (req, res) => {
   try {
-    const posts = await Post.findAll({
+    const postsData = await Post.findAll({
       include: [
         {
           model: User,
@@ -73,9 +73,8 @@ userRouter.get("/dashboard", withAuth, async (req, res) => {
           model: Comment,
         }
       ],
-      raw: true,
     });
-    console.log(posts);
+    const posts = postsData.map((post) => post.get({ plain: true }));
     res.render("dashboard", {
       logged_in: req.session.logged_in,
       posts,
@@ -86,6 +85,7 @@ userRouter.get("/dashboard", withAuth, async (req, res) => {
 });
 
 userRouter.post("/comment", withAuth, async (req, res) => {
+
   try {
     const comment = await Comment.create({
       ...req.body,

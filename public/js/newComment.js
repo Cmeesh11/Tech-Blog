@@ -20,13 +20,12 @@ const createCommentInput = () => {
   form.appendChild(submit);
 
   submit.addEventListener('click', async (event) => {
-
     const comment = input.value.trim();
     const date = new Date();
     if (comment) {
       const response = await fetch('/user/comment', {
         method: "POST",
-        body: JSON.stringify({ id: selectedPost, text: comment, date }),
+        body: JSON.stringify({ post_id: selectedPost, text: comment, date }),
         headers: { "Content-Type": "application/json" },
       });
 
