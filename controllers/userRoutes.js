@@ -71,6 +71,9 @@ userRouter.get("/dashboard", withAuth, async (req, res) => {
         },
         {
           model: Comment,
+          include: {
+            model: User
+          }
         }
       ],
     });

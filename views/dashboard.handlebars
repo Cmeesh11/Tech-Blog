@@ -2,18 +2,18 @@
   {{#each posts as |post|}}
   <div class="card col-12 my-3" data-post_id="{{post.id}}">
     <div class="card-body">
-      <h3 class="card-title">{{log post}} {{post.title}}</h3>
-      <h4 class="card-title">Posted by {{post.user.username}} at {{dateFormat post.date}}</h4>
+      <h2 class="card-title">{{post.title}}</h2>
+      <h5 class="card-title">Posted by {{post.user.username}} at {{dateFormat post.date}}</h5>
       <p class="card-text">{{post.text}}</p>
     </div>
     {{#if post.comments}}
-      <h3>Comments:</h3>
+      <h3 class="ms-3">Comments:</h3>
     {{/if}}
     {{#each post.comments}}
-    <div class="card">
+    <div class="card m-3">
       <div class="card-body">
         <p class="card-text fw-bold">{{this.text}}</p>
-        <p class="card-text">Submitted by {{this.username}} on {{dateFormat this.date}}</p>
+        <p class="card-text">Submitted by {{this.user.username}} on {{dateFormat this.date}}</p>
       </div>
     </div>
     {{/each}} 
