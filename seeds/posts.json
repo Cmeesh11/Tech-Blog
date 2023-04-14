@@ -1,14 +1,14 @@
 [
   {
     "title": "Google is hiring everyone!",
-    "content": "Google is now taking any job seeker that applies for a job! Hurry up and apply!"
+    "text": "Google is now taking any job seeker that applies for a job! Hurry up and apply!"
   },
   {
     "title": "LinkedIn now places you in a job",
-    "content": "The social media website LinkedIn will now guarantee you a job placement with their new program!"
+    "text": "The social media website LinkedIn will now guarantee you a job placement with their new program!"
   },
   {
     "title": "New Language CarterScript takes the world by storm!",
-    "content": "CarterScript is a new programming language that can accomplish any task. Ever! Try it now!"
+    "text": "CarterScript is a new programming language that can accomplish any task. Ever! Try it now!"
   }
 ]

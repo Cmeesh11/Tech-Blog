@@ -17,9 +17,10 @@ userRouter.post("/login", async (req, res) => {
     }
 
     if (user.checkPassword(req.body.password)) {
-      req.session.save(() => {
-        req.session.logged_in = true;
-        req.session.id = user.id;
+      req.session.logged_in = true;
+      req.session.id = user.id;
+      req.session.save((err) => {
+        if (err) throw err;
       });
       res.status(200).json({ message: "Successfully logged in!" });
     } else {
@@ -34,31 +35,25 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // Logs out user
-userRouter.post("/logout", async (req, res) => {
-  try {
-    if (req.session.logged_in) {
-      req.session.destroy(() => {
-        res.status(204).end();
-      });
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
-    res.status(500).json(err);
+userRouter.post('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
   }
 });
 
 userRouter.post("/signup", async (req, res) => {
   try {
     // Create new user
-    console.log(req.body);
     const user = await User.create(req.body);
     // Storing session variables
-    req.session.save(() => {
-      console.log("test");
-      req.session.logged_in = true;
-      req.session.id = user.id;
-      console.log("test2");
+    req.session.logged_in = true;
+    req.session.id = user.id;
+    req.session.save((err) => {
+      if (err) throw err;
     });
     res.status(200).json({ message: "Account successfully created!" });
   } catch (err) {
@@ -80,7 +75,7 @@ userRouter.get("/dashboard", withAuth, async (req, res) => {
       ],
       raw: true,
     });
-
+    console.log(posts);
     res.render("dashboard", {
       logged_in: req.session.logged_in,
       posts,
@@ -95,6 +90,7 @@ userRouter.post("/comment", withAuth, async (req, res) => {
     const comment = await Comment.create({
       ...req.body,
       user_id: req.session.user_id,
+      post_id: req.body.post_id
     });
     res.status(200).json(comment);
   } catch (err) {

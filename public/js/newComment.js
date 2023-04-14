@@ -23,11 +23,10 @@ const createCommentInput = () => {
 
     const comment = input.value.trim();
     const date = new Date();
-
     if (comment) {
       const response = await fetch('/user/comment', {
         method: "POST",
-        body: JSON.stringify({ text: comment, date }),
+        body: JSON.stringify({ id: selectedPost, text: comment, date }),
         headers: { "Content-Type": "application/json" },
       });
 

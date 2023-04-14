@@ -11,7 +11,6 @@ rootRouter.get('/', async (req, res) => {
     },
     raw: true
   });
-
   res.render('homepage', {
     logged_in: req.session.logged_in,
     posts

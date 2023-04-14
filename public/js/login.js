@@ -1,6 +1,7 @@
 // Retreiving values
 const loginForm = document.querySelector("#login-form");
 const signupForm = document.querySelector("#signup-form");
+
 const loginHandler = async (event) => {
   event.preventDefault();
   
