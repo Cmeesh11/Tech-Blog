@@ -24,4 +24,4 @@ When running this server on your local machine, I have provided a seed.js file t
 
 ### Link to deployed application
 
-[Link to application](https://salty-escarpment-19467.herokuapp.com/)
+[Link to application](https://cmeesh11.github.io/Tech-Blog/)
