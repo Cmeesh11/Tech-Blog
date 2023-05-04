@@ -22,6 +22,3 @@ Upon startup, you will not be logged in. If there are any existing posts, they s
 
 When running this server on your local machine, I have provided a seed.js file that can be run using the command ```node seed.js```. This will populate the database with existing posts, users, and comments.
 
-### Link to deployed application
-
-[Link to application](https://cmeesh11.github.io/Tech-Blog/)
